@@ -21,7 +21,7 @@ public abstract class Enemigo : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
         animator = GetComponent<Animator>();
-        jugador = GameObject.FindWithTag("Jugador"); //O como sea que se llame el tag de jugador.
+        jugador = GameObject.FindWithTag("Player"); //O como sea que se llame el tag de jugador.
     }
     
     public virtual void RecibirDMG(int dmg)
