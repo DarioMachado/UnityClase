@@ -6,12 +6,15 @@ using UnityEngine;
 public abstract class Arma : MonoBehaviour
 {
     public int dmg;
+    public float velocidad;
     public int municionMaxima; //Número de balas totales que puede llevar el arma, se puede eliminar
     private int _municionRestante; //Número restante de balas que posee el jugador en el arma. Cada vez que se recarga, disminuye.
     public int municionMaximaCargador; //El número máximo de balas que puede tener ese cargador.
     private int _municionActualCargador; //Balas que quedan en el cargador, cuando llega a 0 ya no se puede disparar más.
-    public Boolean recargando = false;
+    private bool _recargando = false;
+    private bool _disparando = false;
     public float duracionRecarga;
+    
 
     //Aquí se pone la lógica de ataque de cada arma, dado cada arma tendrá una forma de atacar completamente diferente, no hay nada por defecto.
     public virtual void Atacar()
@@ -24,10 +27,10 @@ public abstract class Arma : MonoBehaviour
     {
 
 
-        if (recargando)
+        if (_recargando)
             return;
 
-        recargando = true;
+        _recargando = true;
         //Aplicar animación de recarga aquí
         TiempoRecarga();
         int balasARecargar = _municionActualCargador - municionMaximaCargador;
@@ -35,7 +38,7 @@ public abstract class Arma : MonoBehaviour
         if (_municionRestante < 0)
             _municionActualCargador += _municionRestante; //Es mucho más eficiente hacer esto, simplemente se recargan al máximo, y si el número de balas
                                                           //con las que te quedas es un número negativo, se te quitan todas las balas extras que has pillado.
-        recargando = false;
+        _recargando = false;
     }
 
     IEnumerator TiempoRecarga()
