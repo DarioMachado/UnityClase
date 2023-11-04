@@ -32,7 +32,8 @@ public abstract class Arma : MonoBehaviour
 
         _recargando = true;
         //Aplicar animación de recarga aquí
-        TiempoRecarga();
+        StartCoroutine(TiempoRecarga());
+        //Terminar animación de recarga
         int balasARecargar = _municionActualCargador - municionMaximaCargador;
         _municionRestante -= balasARecargar;
         _municionActualCargador = municionMaximaCargador;
