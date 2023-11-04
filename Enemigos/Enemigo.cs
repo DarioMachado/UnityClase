@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public abstract class Enemigo : MonoBehaviour, IDamageable
@@ -56,8 +57,9 @@ public abstract class Enemigo : MonoBehaviour, IDamageable
     public void Caminar() {
         Vector3 direccionJugador = new Vector3(jugador.transform.position.x, transform.position.y, jugador.transform.position.z);
        
-        transform.position =
-    
+       transform.position = Vector3.Lerp(transform.position, direccionJugador, velocidad * Time.deltaTime);
+
+
     }
 
 
