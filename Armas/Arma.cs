@@ -21,6 +21,7 @@ public abstract class Arma : MonoBehaviour
     {
         //blabla si municion es menor que 0, sonido de que faltan balas y return, si no, aplicar toda la lógica de disparo
         //Si recargando == true, return.
+        //Llamar al cooldown, para que no puedas disparar 10 rpgs por segundo.
     }
 
     public void Recargar() 
@@ -49,5 +50,12 @@ public abstract class Arma : MonoBehaviour
         yield return new WaitForSeconds(duracionRecarga);
     }
     
+
+    IEnumerator CoolDown()
+    {
+        _disparando = true;
+        yield return new WaitForSeconds(cooldown);
+        _disparando = false;
+    }
    
 }
