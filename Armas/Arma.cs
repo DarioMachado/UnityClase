@@ -23,19 +23,19 @@ public abstract class Arma : MonoBehaviour
     public void Recargar() 
     {
 
-        //Recargando se vuelve true, durante ese tiempo no se podrá atacar aunque se sigan teniendo balas.
-        //Se activa una animación de recarga, que puede durar más o menos dependiendo del arma
-        //Se calcula municionCargador - 
+
         if (recargando)
             return;
 
         recargando = true;
+        //Aplicar animación de recarga aquí
         TiempoRecarga();
         int balasARecargar = _municionActualCargador - municionMaximaCargador;
         _municionRestante -= balasARecargar;
         if (_municionRestante < 0)
-            _municionActualCargador += _municionRestante;
-
+            _municionActualCargador += _municionRestante; //Es mucho más eficiente hacer esto, simplemente se recargan al máximo, y si el número de balas
+                                                          //con las que te quedas es un número negativo, se te quitan todas las balas extras que has pillado.
+        recargando = false;
     }
 
     IEnumerator TiempoRecarga()
