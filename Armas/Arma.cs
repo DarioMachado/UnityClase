@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class Arma : MonoBehaviour
 {
     public int dmg;
-    public float velocidad;
+    public float cooldown; //Cómo de rápido puede atacar un arma, este sería un número bastante bajo para un arma automática por ejemplo, pero algo más alto para una escopeta
     public int municionMaxima; //Número de balas totales que puede llevar el arma, se puede eliminar
     private int _municionRestante; //Número restante de balas que posee el jugador en el arma. Cada vez que se recarga, disminuye.
     public int municionMaximaCargador; //El número máximo de balas que puede tener ese cargador.
@@ -35,6 +35,7 @@ public abstract class Arma : MonoBehaviour
         TiempoRecarga();
         int balasARecargar = _municionActualCargador - municionMaximaCargador;
         _municionRestante -= balasARecargar;
+        _municionActualCargador = municionMaximaCargador;
         if (_municionRestante < 0)
             _municionActualCargador += _municionRestante; //Es mucho más eficiente hacer esto, simplemente se recargan al máximo, y si el número de balas
                                                           //con las que te quedas es un número negativo, se te quitan todas las balas extras que has pillado.
@@ -45,8 +46,6 @@ public abstract class Arma : MonoBehaviour
     {
         
         yield return new WaitForSeconds(duracionRecarga);
-        
-
     }
     
    
