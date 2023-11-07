@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Pistola : Arma
 {
+    public override void Atacar()
+    {
+        if (_disparando) return;
+        if (_recargando) return;
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {

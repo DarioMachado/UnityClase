@@ -11,18 +11,18 @@ public abstract class Arma : MonoBehaviour
     private int _municionRestante; //Número restante de balas que posee el jugador en el arma. Cada vez que se recarga, disminuye.
     public int municionMaximaCargador; //El número máximo de balas que puede tener ese cargador.
     private int _municionActualCargador; //Balas que quedan en el cargador, cuando llega a 0 ya no se puede disparar más.
-    private bool _recargando = false;
-    private bool _disparando = false;
+    protected bool _recargando = false;
+    protected bool _disparando = false;
     public float duracionRecarga;
-    
+
 
     //Aquí se pone la lógica de ataque de cada arma, dado cada arma tendrá una forma de atacar completamente diferente, no hay nada por defecto.
-    public virtual void Atacar()
-    {
+    public abstract void Atacar();
+    
         //blabla si municion es menor que 0, sonido de que faltan balas y return, si no, aplicar toda la lógica de disparo
         //Si recargando == true, return.
         //Llamar al cooldown, para que no puedas disparar 10 rpgs por segundo.
-    }
+    
 
     public void Recargar() 
     {
