@@ -67,6 +67,7 @@ public class Jugador : MonoBehaviour, IDamageable
 
     private void CambiarArma(int nuevaArma)
     {
+        if (nuevaArma >= armas.Length) return; //Podría removerse si se mejora el método MiscInputs
         armas[armaActual].gameObject.SetActive(false);
         armaActual = nuevaArma;
         armas[armaActual].gameObject.SetActive(true);
@@ -74,9 +75,33 @@ public class Jugador : MonoBehaviour, IDamageable
     }
 
     public void MiscInputs() { 
-    
-    
-    
+        //He buscado formas de hacer esto mejor, intentando hacer un solo if como se puede hacer en java (con keycode > x and keycode < x)
+        //Pero no hay manera, queda esta cosa fea. Si alguien pudiera arreglarlo estaría bien
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            CambiarArma(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            CambiarArma(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            CambiarArma(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            CambiarArma(3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            CambiarArma(4);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            CambiarArma(5);
+        }
+       
     }
 
     void Update()
@@ -88,6 +113,7 @@ public class Jugador : MonoBehaviour, IDamageable
         if (Input.GetButtonDown("Fire1"))
         {
             armas[armaActual].Atacar();
+            
         }
 
     }
