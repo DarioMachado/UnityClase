@@ -11,65 +11,70 @@ public class Bala : MonoBehaviour
     public float velocidad;
     private int dmg;
     private CapsuleCollider col;
-    private bool moviendose;
-
+    private Rigidbody rb;
+    private Vector3 direccion;
     void Awake()
     {
         col = GetComponent<CapsuleCollider>();
         col.enabled = false;
         velocidad = 40f;
+        rb = GetComponent<Rigidbody>();
     }
 
 
    
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("colison");
+       
         
         IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
 
         if (damageable != null)
         {
-           
             damageable.RecibirDMG(dmg);
-
-            Destruir();
             
         }
+
+        Destruir();
     }
 
-
-    public void IniciarDisparo(int dmg, Transform tr)
+    //Las balas rebotan.
+    public void IniciarDisparo(int dmg, Transform tr, Vector3 direccion)
     {
         this.dmg = dmg;
-        Camera mainCamera = Camera.main;
-
-
-
-
-
+       
         transform.position = tr.position;
-        transform.forward = mainCamera.transform.forward;
+        transform.rotation = tr.rotation;
 
+
+        transform.forward = direccion.normalized;
+
+        rb.velocity = transform.forward * 20f;
         this.col.enabled = true;
-        moviendose = true;
+       
+        StartCoroutine(TimeSpan());
 
     }
 
     private void Update()
     {
-        if (moviendose) {
-
-            transform.Translate(Vector3.forward * velocidad * Time.deltaTime);
-        }
+        
     }
 
     private void Destruir()
     {
         gameObject.SetActive(false);
-        moviendose = false;
+       
         this.col.enabled=false;
     }
 
+    IEnumerator TimeSpan()
+    {
+        
 
+        
+        yield return new WaitForSeconds(1.5f);
+        Destruir();
+     
+    }
 }

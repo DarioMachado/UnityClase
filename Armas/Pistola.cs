@@ -24,6 +24,18 @@ public class Pistola : Arma
         //blabla si municion es menor que 0, sonido de que faltan balas y return, si no, aplicar toda la lógica de disparo
 
         //Llamar al cooldown, para que no puedas disparar 10 rpgs por segundo.
+
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+        Vector3 targetPoint;
+        if (Physics.Raycast(ray, out hit))
+            targetPoint = hit.point;
+        else
+            targetPoint = ray.GetPoint(75);
+
+
+        Vector3 direccion = targetPoint - Camera.main.transform.position;
+
         int i = 0;
         for (; i < _piscina.Balas.Length; i++)
         {
@@ -37,7 +49,7 @@ public class Pistola : Arma
         }
        
 
-        _piscina.BalaScript(i).IniciarDisparo(this.dmg, transform.parent);
+        _piscina.BalaScript(i).IniciarDisparo(this.dmg, transform, direccion);
        
 
 
