@@ -113,7 +113,12 @@ public class Jugador : MonoBehaviour, IDamageable
         if (Input.GetButtonDown("Fire1"))
         {
             armas[armaActual].Atacar();
-            
+           
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            armas[armaActual].Recargar();
         }
 
     }

@@ -35,23 +35,28 @@ public abstract class Arma : MonoBehaviour
         //Aplicar animación de recarga aquí
         StartCoroutine(TiempoRecarga());
         //Terminar animación de recarga
-        int balasARecargar = municionMaximaCargador - _municionActualCargador;
-        _municionRestante -= balasARecargar;
-        _municionActualCargador = municionMaximaCargador;
-        if (_municionRestante < 0)
-            _municionActualCargador += _municionRestante; //Es mucho más eficiente hacer esto, simplemente se recargan al máximo, y si el número de balas
-                                                          //con las que te quedas es un número negativo, se te quitan todas las balas extras que has pillado.
-        _recargando = false;
+       
     }
 
     IEnumerator TiempoRecarga()
     {
         
         yield return new WaitForSeconds(duracionRecarga);
+
+
+        int balasARecargar = municionMaximaCargador - _municionActualCargador;
+        _municionRestante -= balasARecargar;
+        _municionActualCargador = municionMaximaCargador;
+        if (_municionRestante < 0)
+        {
+            _municionActualCargador += _municionRestante;
+            _municionRestante = 0;    //Es mucho más eficiente hacer esto, simplemente se recargan al máximo, y si el número de balas
+        }                            //con las que te quedas es un número negativo, se te quitan todas las balas extras que has pillado.
+        _recargando = false;
     }
     
 
-    IEnumerator CoolDown()
+    protected IEnumerator CoolDown()
     {
         _disparando = true;
         yield return new WaitForSeconds(cooldown);
@@ -63,6 +68,7 @@ public abstract class Arma : MonoBehaviour
     {
         _piscina = GameObject.FindObjectOfType<PoolingBalas>();
         _municionActualCargador = municionMaximaCargador;
+        _municionRestante = municionMaxima;
     }
 }
 

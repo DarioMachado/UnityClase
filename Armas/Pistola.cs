@@ -47,12 +47,13 @@ public class Pistola : Arma
             }
         
         }
-       
+        StartCoroutine(CoolDown());
 
         _piscina.BalaScript(i).IniciarDisparo(this.dmg, transform, direccion);
-       
 
+        _municionActualCargador--;
 
+        Debug.Log(_municionActualCargador);
 
     }
 
